@@ -9,7 +9,7 @@
       <p id="nombre_texto">{{ nombre }}</p>
     </div>
     <div id="boton_slot">
-      <button id="boton_contain">ELIMINAR</button>
+      <button id="boton_contain" v-on:click="funcionEliminar">ELIMINAR</button>
     </div>
   </div>
 </template>
@@ -21,6 +21,9 @@ export default {
     nombre: {
       type: String,
       default: 'Una Rica Hamburguesa'
+    },
+    funcionEliminar: {
+      type: Function
     }
   }
 }

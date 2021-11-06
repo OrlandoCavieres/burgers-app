@@ -2,7 +2,7 @@
   <div class="mainContainer">
     <div class="container">
       <template v-for="burger in burgers" :key="burger">
-        <BurgerCard :nombre="burger.nombre" />
+        <BurgerCard :nombre="burger.nombre" :funcionEliminar="() => deleteBurger(burger)" />
       </template>
     </div>
   </div>
@@ -26,6 +26,11 @@ export default {
           nombre: 'Electrico'
         }
       ]
+    }
+  },
+  methods: {
+    deleteBurger(burger) {
+      this.burgers.splice(this.burgers.indexOf(burger), 1)
     }
   }
 }
