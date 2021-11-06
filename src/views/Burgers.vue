@@ -1,30 +1,38 @@
 <template>
   <div class="mainContainer">
-    <div class="separador">
-
-    </div>
     <div class="container">
-
+      <template v-for="burger in burgers" :key="burger">
+        <BurgerCard :nombre="burger.nombre" />
+      </template>
     </div>
   </div>
 </template>
 
 <script>
+import BurgerCard from '../components/BurgerCard.vue'
+
 export default {
   name: 'Burgers',
-  methods: {
-    getBurgers() {
-
+  components: {
+    BurgerCard
+  },
+  data() {
+    return {
+      burgers: [
+        {
+          nombre: 'McBurguer'
+        },
+        {
+          nombre: 'Electrico'
+        }
+      ]
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-$radius: 25px;
-$primary-color: #5D4954;
-$hmin: 30vh;
-$wmin: 20vw;
+@import '../globalStyles';
 
 .mainContainer {
   align-items: center;
@@ -33,19 +41,13 @@ $wmin: 20vw;
   min-height: $hmin;
   min-width: $wmin;
 }
-.separador {
-  background: $primary-color;
-  border-radius: $radius;
-  elevation: lower;
-  height: 7px;
-  width: 90%;
-}
+
 .container {
   align-self: center;
-  border: 3px solid;
+  align-items: center;
   display: flex;
-  width: 95%;
+  flex-direction: column;
+  width: 80%;
   margin-top: 5px;
-  height: 200vh;
 }
 </style>
