@@ -1,5 +1,5 @@
 <template>
-  <div id="container">
+  <div class="card">
     <div id="image_slot">
       <img id="image_element"
            src="https://pruebeydisfrute.com/wp-content/uploads/2021/01/2-proud-burger.png"
@@ -35,7 +35,7 @@ export default {
 $image-ratio-calc: calc(30px + 2vw);
 $margin-xtreme-calc: calc(5px + 0.5vw);
 
-#container {
+.card {
   align-items: center;
   background-color: $primary-color;
   border-radius: $rad-light;

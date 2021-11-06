@@ -1,9 +1,13 @@
 <template>
   <div class="mainContainer">
+    <h1 id="title_lista">LISTA DE HAMBURGUESAS DISPONIBLES</h1>
     <div class="container">
       <template v-for="burger in burgers" :key="burger">
         <BurgerCard :nombre="burger.nombre" :funcionEliminar="() => deleteBurger(burger)" />
       </template>
+    </div>
+    <div class="plusButton">
+
     </div>
   </div>
 </template>
@@ -18,21 +22,23 @@ export default {
   },
   data() {
     return {
-      burgers: [
-        {
-          nombre: 'McBurguer'
-        },
-        {
-          nombre: 'Electrico'
-        }
-      ]
+      burgers: [],
+      showDeleteModal: false
     }
   },
   methods: {
+    getBurgers() {
+      this.$http.get('https://prueba-hamburguesas.herokuapp.com/burger/')
+          .then((response) => { this.burgers = response.data; }, err => console.log(err));
+    },
+
     deleteBurger(burger) {
       this.burgers.splice(this.burgers.indexOf(burger), 1)
     }
-  }
+  },
+  created() {
+    this.getBurgers();
+  },
 }
 </script>
 
@@ -55,4 +61,9 @@ export default {
   width: 80%;
   margin-top: 5px;
 }
+
+#title_lista {
+
+}
+
 </style>
