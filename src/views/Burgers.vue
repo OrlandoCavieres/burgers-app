@@ -3,7 +3,10 @@
     <h1 id="title_lista">LISTA DE HAMBURGUESAS DISPONIBLES</h1>
     <div class="container">
       <template v-for="burger in burgers" :key="burger">
-        <BurgerCard :nombre="burger.nombre" :funcionEliminar="() => deleteBurger(burger)" />
+        <BurgerCard :nombre="burger.nombre"
+                    v-on:click="() => showInfo(burger)"
+                    :funcionEliminar="() => deleteBurger(burger)" />
+        <ShowInfoModal v-if="showInfoModal" :funcionCerrar="closeInfoModal" :datos="actualBurger"/>
       </template>
     </div>
     <div class="plusButton">
@@ -18,24 +21,39 @@
 <script>
 import BurgerCard from '../components/BurgerCard.vue'
 import DeleteModal from '../components/DeleteModal.vue'
+import ShowInfoModal from '../components/ShowInfoModal.vue'
 
 export default {
   name: 'Burgers',
   components: {
     BurgerCard,
-    DeleteModal
+    DeleteModal,
+    ShowInfoModal,
   },
+
   data() {
     return {
       burgers: [],
+      showInfoModal: false,
       showDeleteModal: false,
-      lastIndexToDelete: 0
+      lastIndexToDelete: 0,
+      actualBurger: {}
     }
   },
+
   methods: {
     getBurgers() {
       this.$http.get('https://prueba-hamburguesas.herokuapp.com/burger/')
           .then((response) => { this.burgers = response.data; }, err => console.log(err));
+    },
+
+    showInfo(burger) {
+      this.showInfoModal = true
+      this.actualBurger = burger
+    },
+
+    closeInfoModal() {
+      this.showInfoModal = false
     },
 
     deleteBurger(burger) {
@@ -54,12 +72,14 @@ export default {
     },
 
     cancelDelete() {
+      this.showInfoModal = false
       this.showDeleteModal = false
     }
   },
+
   created() {
     this.getBurgers();
-  },
+  }
 }
 </script>
 
@@ -84,7 +104,9 @@ export default {
 }
 
 #title_lista {
-
+  margin-top: 20px;
+  font-size: calc(12px + 1.5vw);
+  width: 80%;
 }
 
 </style>

@@ -34,7 +34,7 @@
   align-self: center;
   display: flex;
   padding: 30px;
-  width: 100%;
+  width: 90%;
 }
 
 #nav a {
