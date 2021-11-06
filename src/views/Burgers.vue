@@ -9,21 +9,27 @@
     <div class="plusButton">
 
     </div>
+    <DeleteModal v-if="showDeleteModal"
+                 :funcionConfirmar="confirmDelete"
+                 :funcionCancelar="cancelDelete" />
   </div>
 </template>
 
 <script>
 import BurgerCard from '../components/BurgerCard.vue'
+import DeleteModal from '../components/DeleteModal.vue'
 
 export default {
   name: 'Burgers',
   components: {
-    BurgerCard
+    BurgerCard,
+    DeleteModal
   },
   data() {
     return {
       burgers: [],
-      showDeleteModal: false
+      showDeleteModal: false,
+      lastIndexToDelete: 0
     }
   },
   methods: {
@@ -33,7 +39,22 @@ export default {
     },
 
     deleteBurger(burger) {
-      this.burgers.splice(this.burgers.indexOf(burger), 1)
+      console.log(burger)
+      this.showDeleteModal = true
+      this.lastIndexToDelete = this.burgers.indexOf(burger)
+    },
+
+    confirmDelete() {
+      this.$http.delete('https://prueba-hamburguesas.herokuapp.com/burger/' + 
+                        this.burgers[this.lastIndexToDelete].id)
+          .then(() => {
+            this.burgers.splice(this.lastIndexToDelete, 1)
+            this.showDeleteModal = false
+          }, err => console.log(err))
+    },
+
+    cancelDelete() {
+      this.showDeleteModal = false
     }
   },
   created() {
