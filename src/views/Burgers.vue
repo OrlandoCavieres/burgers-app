@@ -1,6 +1,7 @@
 <template>
   <div class="mainContainer">
     <h1 id="title_lista">LISTA DE HAMBURGUESAS DISPONIBLES</h1>
+    <button class="botonAgregar_container" v-on:click="() => openCreateModal()">Crear nueva hamburguesa</button>
     <div class="container">
       <template v-for="burger in burgers" :key="burger">
         <BurgerCard :nombre="burger.nombre"
@@ -9,12 +10,12 @@
         <ShowInfoModal v-if="showInfoModal" :funcionCerrar="closeInfoModal" :datos="actualBurger"/>
       </template>
     </div>
-    <div class="plusButton">
-
-    </div>
     <DeleteModal v-if="showDeleteModal"
                  :funcionConfirmar="confirmDelete"
                  :funcionCancelar="cancelDelete" />
+    <NewBurgerModal v-if="showCreateModal"
+                    :funcionCerrar="closeCreateModal"
+                    :funcionAgregarBurger="(newBurger) => processNewBurgerData(newBurger)" />
   </div>
 </template>
 
@@ -22,22 +23,27 @@
 import BurgerCard from '../components/BurgerCard.vue'
 import DeleteModal from '../components/DeleteModal.vue'
 import ShowInfoModal from '../components/ShowInfoModal.vue'
+import NewBurgerModal from '../components/NewBurgerModal.vue'
 
 export default {
   name: 'Burgers',
   components: {
     BurgerCard,
     DeleteModal,
+    NewBurgerModal,
     ShowInfoModal,
   },
 
   data() {
     return {
       burgers: [],
-      showInfoModal: false,
-      showDeleteModal: false,
+
+      actualBurger: {},
       lastIndexToDelete: 0,
-      actualBurger: {}
+
+      showCreateModal: false,
+      showDeleteModal: false,
+      showInfoModal: false
     }
   },
 
@@ -45,6 +51,18 @@ export default {
     getBurgers() {
       this.$http.get('https://prueba-hamburguesas.herokuapp.com/burger/')
           .then((response) => { this.burgers = response.data; }, err => console.log(err));
+    },
+
+    openCreateModal() {
+      this.showCreateModal = true;
+    },
+
+    processNewBurgerData(newBurger) {
+      console.log(newBurger)
+    },
+
+    closeCreateModal() {
+      this.showCreateModal = false;
     },
 
     showInfo(burger) {
@@ -88,8 +106,6 @@ export default {
   align-items: center;
   display: flex;
   flex-direction: column;
-  min-height: $hmin;
-  min-width: $wmin;
 }
 
 .container {
@@ -101,9 +117,23 @@ export default {
   margin-top: 5px;
 }
 
+.botonAgregar_container {
+  align-self: flex-end;
+  margin-right: 20%;
+  background-color: $alternative-color;
+  border: 0;
+  border-radius: $rad-light;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  height: 50px;
+  margin-top: 40px;
+  width: calc(200px + 8vw);
+}
+
 #title_lista {
   margin-top: 20px;
-  font-size: calc(12px + 1.5vw);
+  font-size: calc(16px + 1.5vw);
   width: 80%;
 }
 
