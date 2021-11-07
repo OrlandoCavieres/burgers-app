@@ -3,10 +3,16 @@
     <h1 id="title_lista">LISTA DE HAMBURGUESAS DISPONIBLES</h1>
     <!-- Boton para abrir el modal que permite llenar datos para crear una nueva hamburguesa -->
     <button class="botonAgregar_container" v-on:click="() => openCreateModal()">Crear nueva hamburguesa</button>
+    <div class="separador_interior" />
+    <div class="searchContainer">
+      <input class="searchInputBox" type="text" v-model="searchText">
+      <button class="searchButton" v-on:click="filterList">Buscar</button>
+      <button class="searchButton" v-on:click="resetSearch">Reset</button>
+    </div>
     <div class="container">
       <!-- Se genera la lista de hamburguesas empleando el componente BurgerCard y linkeando cada elemento a un
            modal de vista de informacion y funciones de control -->
-      <template v-for="burger in burgers" :key="burger">
+      <template v-for="burger in burgers_filtered" :key="burger">
         <BurgerCard :nombre="burger.nombre"
                     :funcionMostrarConfirm="() => showInfo(burger)"
                     :funcionEliminar="() => deleteBurger(burger)" />
@@ -43,10 +49,12 @@ export default {
     return {
       // lista de hamburguesas recueperada desde el servidor
       burgers: [],
+      burgers_filtered: [],
 
       // Estados consultados últimos antes de entrar a un modal que los necesite
       actualBurger: {},
       lastIndexToDelete: 0,
+      searchText: '',
 
       // Controles de visibilidad de modales
       showCreateModal: false,
@@ -61,7 +69,10 @@ export default {
      */
     getBurgers() {
       this.$http.get('https://prueba-hamburguesas.herokuapp.com/burger/')
-          .then((response) => { this.burgers = response.data; }, err => console.log(err));
+          .then((response) => {
+            this.burgers = response.data;
+            this.burgers_filtered = response.data},
+              err => console.log(err));
     },
 
     /**
@@ -135,6 +146,28 @@ export default {
      */
     cancelDelete() {
       this.showDeleteModal = false
+    },
+
+    /**
+     * Filtra la lista entrante de hamburguesas por los elementos que cumplan con coincidir en parte
+     * con lo ingresado en el cuadro de busqueda cuando se hace click en el boton buscar
+     */
+    filterList() {
+      if (this.searchText === '') {
+        this.burgers_filtered = this.burgers
+      }
+      else {
+        console.log(this.searchText)
+        this.burgers_filtered = this.burgers.filter(burger => burger.nombre.includes(this.searchText) )
+      }
+    },
+
+    /**
+     * Resetea el cuadro de busqueda para recuperar la lista entera de hamburguesas
+     */
+    resetSearch() {
+      this.searchText = ''
+      this.filterList()
     }
   },
 
@@ -147,35 +180,69 @@ export default {
 <style scoped lang="scss">
 @import '../globalStyles';
 
+%upper-button {
+  background-color: $alternative-color;
+  font-size: calc(9px + 0.5vw);
+  font-weight: bold;
+  height: 50px;
+}
+
 .mainContainer {
   align-items: center;
   display: flex;
   flex-direction: column;
 }
 
+.separador_interior {
+  background-color: $primary-color;
+  border-radius: $rad-smooth;
+  height: 5px;
+  margin-top: 20px;
+  width: 70%;
+}
+
+.searchContainer {
+  @extend %flex-align-center;
+  align-self: flex-start;
+  margin-left: 20%;
+  margin-top: 20px;
+}
+
+.searchInputBox {
+  background-color: white;
+  border: 2px solid $primary-color;
+  border-radius: $rad-light;
+  font-size: calc(12px + 0.5vw);
+  height: 40px;
+  padding-left: 15px;
+  width: calc(50px + 20vw);
+}
+
+.searchButton {
+  @extend %button-light-borderless, %upper-button;
+  margin-left: 5px;
+  width: calc(30px + 4vw);
+}
+
 .container {
   @extend %flex-center;
   flex-direction: column;
-  width: 80%;
-  margin-top: 5px;
   margin-bottom: 20px;
+  margin-top: 5px;
+  width: 80%;
 }
 
 .botonAgregar_container {
-  @extend %button-light-borderless;
+  @extend %button-light-borderless, %upper-button;
   align-self: flex-end;
   margin-right: 20%;
-  background-color: $alternative-color;
-  font-size: 18px;
-  font-weight: bold;
-  height: 50px;
   margin-top: 40px;
-  width: calc(200px + 8vw);
+  width: calc(10px + 20vw);
 }
 
 #title_lista {
-  margin-top: 20px;
   font-size: calc(16px + 1.5vw);
+  margin-top: 20px;
   width: 80%;
 }
 
