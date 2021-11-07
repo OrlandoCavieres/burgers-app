@@ -10,7 +10,7 @@
           <div class="modal-show-elements">
             <h2 class="modal-text-title">{{ datos['nombre'] }}</h2>
             <h4 class="modal-text-subtitle">Ingredientes</h4>
-            <p class="modal-text-info">{{ datos['ingredientes'].join(' - ') }}</p>
+            <p class="modal-text-info">{{ datos['ingredientes'].join('  -  ') }}</p>
             <h4 class="modal-text-subtitle">Calorías</h4>
             <p class="modal-text-info">{{ datos['calorias'] }}</p>
           </div>
@@ -45,11 +45,10 @@ export default {
 
 .modal-show-masking {
   position: fixed;
-  z-index: 10000;
+  z-index: 10;
   top: 0;
   left: 0;
   display: table;
-  transition: opacity 0.3s ease;
   background-color: rgba(0, 0, 0, 0.2);
   width: 100%;
   height: 100%;
@@ -68,7 +67,6 @@ export default {
   height: 200px;
   background-color: $primary-color;
   display: flex;
-  transition: all 0.3s ease;
   margin: 0 auto;
   padding: 10px 20px;
 }
@@ -120,19 +118,6 @@ export default {
 #image_infoModal {
   height: calc(100px + 4vw);
   width: calc(100px + 4vw)
-}
-
-.modal-enter {
-  opacity: 0;
-}
-
-.modal-leave-active {
-  opacity: 0;
-}
-
-.modal-enter .modal-delete-container, .modal-leave-active .modal-delete-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
 }
 
 </style>

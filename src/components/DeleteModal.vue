@@ -42,12 +42,11 @@ export default {
 
 .modal-delete-masking {
   position: fixed;
-  z-index: 10000;
+  z-index: 10;
   top: 0;
   left: 0;
   display: table;
-  transition: opacity 0.3s ease;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   width: 100%;
   height: 100%;
 }
@@ -66,7 +65,6 @@ export default {
   background-color: #FFF;
   display: flex;
   justify-content: center;
-  transition: all 0.3s ease;
   margin: 0 auto;
   padding: 10px 20px;
 }
@@ -101,19 +99,6 @@ export default {
   border-radius: $rad-light;
   margin-right: 5px;
   background-color: $alternative-color;
-}
-
-.modal-enter {
-  opacity: 0;
-}
-
-.modal-leave-active {
-  opacity: 0;
-}
-
-.modal-enter .modal-delete-container, .modal-leave-active .modal-delete-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
 }
 
 #alert-icon {
