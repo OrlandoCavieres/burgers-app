@@ -120,6 +120,7 @@ export default {
   flex-direction: column;
   width: 80%;
   margin-top: 5px;
+  margin-bottom: 20px;
 }
 
 .botonAgregar_container {
