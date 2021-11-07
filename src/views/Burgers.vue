@@ -4,7 +4,7 @@
     <div class="container">
       <template v-for="burger in burgers" :key="burger">
         <BurgerCard :nombre="burger.nombre"
-                    v-on:click="() => showInfo(burger)"
+                    :funcionMostrarConfirm="() => showInfo(burger)"
                     :funcionEliminar="() => deleteBurger(burger)" />
         <ShowInfoModal v-if="showInfoModal" :funcionCerrar="closeInfoModal" :datos="actualBurger"/>
       </template>
@@ -57,7 +57,6 @@ export default {
     },
 
     deleteBurger(burger) {
-      console.log(burger)
       this.showDeleteModal = true
       this.lastIndexToDelete = this.burgers.indexOf(burger)
     },
@@ -72,7 +71,6 @@ export default {
     },
 
     cancelDelete() {
-      this.showInfoModal = false
       this.showDeleteModal = false
     }
   },

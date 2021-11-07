@@ -1,12 +1,14 @@
 <template>
   <div class="card">
-    <div id="image_slot">
-      <img id="image_element"
-           src="https://pruebeydisfrute.com/wp-content/uploads/2021/01/2-proud-burger.png"
-           alt="burgerImage"/>
-    </div>
-    <div id="nombre_slot">
-      <p id="nombre_texto">{{ nombre }}</p>
+    <div class="cardInner" v-on:click="funcionMostrarConfirm">
+      <div id="image_slot">
+        <img id="image_element"
+             src="https://pruebeydisfrute.com/wp-content/uploads/2021/01/2-proud-burger.png"
+             alt="burgerImage"/>
+      </div>
+      <div id="nombre_slot">
+        <p id="nombre_texto">{{ nombre }}</p>
+      </div>
     </div>
     <div id="boton_slot">
       <button id="boton_contain" v-on:click="funcionEliminar">ELIMINAR</button>
@@ -23,6 +25,9 @@ export default {
       default: 'Una Rica Hamburguesa'
     },
     funcionEliminar: {
+      type: Function
+    },
+    funcionMostrarConfirm: {
       type: Function
     }
   }
@@ -46,6 +51,16 @@ $margin-xtreme-calc: calc(5px + 0.5vw);
   justify-content: center;
   margin-top: 15px;
   width: 80%;
+}
+.cardInner {
+  align-items: center;
+  background-color: transparent;
+  border-radius: $rad-light;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
 }
 
 #image_slot {
@@ -78,6 +93,7 @@ $margin-xtreme-calc: calc(5px + 0.5vw);
 #boton_contain {
   background-color: $warning-color;
   color: white;
+  z-index: 1000;
   font-size: calc(8px + 1vw);
   border: 0;
   border-radius: $rad-light;
