@@ -58,7 +58,12 @@ export default {
     },
 
     processNewBurgerData(newBurger) {
-      console.log(newBurger)
+      this.$http.post('https://prueba-hamburguesas.herokuapp.com/burger/', newBurger, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then((response) => this.burgers.push(response.data))
+      this.closeCreateModal()
     },
 
     closeCreateModal() {

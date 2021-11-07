@@ -17,8 +17,9 @@
               </div>
             </div>
             <div class="modal-create-ingredients">
-              <input type="text" id="ingrediente_burger">
-              <button class="modal-create-button-add-ingredient">Agregar</button>
+              <input type="text" id="ingrediente_burger" v-model="ingredient">
+              <button class="modal-create-button-add-ingredient" v-on:click="addNewIngredient">Agregar</button>
+              <button class="modal-create-button-reset" v-on:click="removeIngredients">Reset</button>
             </div>
             <p class="modal-create-ingredients-added">{{ newBurger.ingredientes.join(' - ') }}</p>
             <button class="modal-create-button-confirm"
@@ -39,12 +40,28 @@ export default {
         nombre: '',
         calorias: 0,
         ingredientes: []
-      }
+      },
+      ingredient: ''
     }
   },
   methods: {
     getSubmitDataAndConfirm() {
-      this.funcionAgregarBurger(this.newBurger)
+      if (this.newBurger.nombre === '') {
+        alert('nombre no puede estar vacio')
+      }
+      else {
+        this.funcionAgregarBurger(this.newBurger)
+      }
+    },
+
+    addNewIngredient() {
+      this.newBurger.ingredientes.push(this.ingredient)
+      this.ingredient = ''
+    },
+
+    removeIngredients() {
+      this.ingredient = ''
+      this.newBurger.ingredientes = []
     }
   },
   props: {
@@ -158,6 +175,15 @@ export default {
 
 .modal-create-button-add-ingredient {
   background-color: $dark-select-color;
+  border: 0;
+  border-radius: $rad-light;
+  color: white;
+  font-size: calc(8px + 0.5vw);
+  height: 25px;
+}
+
+.modal-create-button-reset {
+  background-color: $warning-color;
   border: 0;
   border-radius: $rad-light;
   color: white;
