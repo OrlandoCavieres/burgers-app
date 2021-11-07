@@ -67,7 +67,10 @@ export default {
      */
     getSubmitDataAndConfirm() {
       if (this.newBurger.nombre === '') {
-        alert('nombre no puede estar vacio')
+        alert('Nombre no puede estar vacio')
+      }
+      else if (this.newBurger.ingredientes.length === 0) {
+        alert('Debe tener al menos un ingrediente')
       }
       else {
         this.funcionAgregarBurger(this.newBurger)

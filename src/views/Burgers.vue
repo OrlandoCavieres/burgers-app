@@ -6,8 +6,8 @@
     <div class="separador_interior" />
     <div class="searchContainer">
       <input class="searchInputBox" type="text" v-model="searchText">
-      <button class="searchButton" v-on:click="filterList">Buscar</button>
-      <button class="searchButton" v-on:click="resetSearch">Reset</button>
+      <button class="searchButton" id="RealizarBusqueda" v-on:click="filterList">Buscar</button>
+      <button class="searchButton" id="ResetearBusqueda" v-on:click="resetSearch">Reset</button>
     </div>
     <div class="container">
       <!-- Se genera la lista de hamburguesas empleando el componente BurgerCard y linkeando cada elemento a un
@@ -35,6 +35,7 @@ import BurgerCard from '../components/BurgerCard.vue'
 import DeleteModal from '../components/DeleteModal.vue'
 import ShowInfoModal from '../components/ShowInfoModal.vue'
 import NewBurgerModal from '../components/NewBurgerModal.vue'
+import axios from 'axios'
 
 export default {
   name: 'Burgers',
@@ -67,12 +68,11 @@ export default {
     /**
      * Obtiene la lista de hamburguesas desde el servidor
      */
-    getBurgers() {
-      this.$http.get('https://prueba-hamburguesas.herokuapp.com/burger/')
-          .then((response) => {
-            this.burgers = response.data;
-            this.burgers_filtered = response.data},
-              err => console.log(err));
+    async getBurgers() {
+      await axios.get('https://prueba-hamburguesas.herokuapp.com/burger/')
+                 .then((response) => {
+                   this.burgers = response.data;
+                   this.burgers_filtered = response.data}, err => console.log(err));
     },
 
     /**
@@ -87,7 +87,7 @@ export default {
      * @param newBurger Objeto que representa a la nueva hamburguesa a ser enviado
      */
     postNewBurgerData(newBurger) {
-      this.$http.post('https://prueba-hamburguesas.herokuapp.com/burger/', newBurger, {
+      axios.post('https://prueba-hamburguesas.herokuapp.com/burger/', newBurger, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -133,7 +133,7 @@ export default {
      * entregando el id de la hamburguesa a ser eliminada
      */
     confirmDelete() {
-      this.$http.delete('https://prueba-hamburguesas.herokuapp.com/burger/' + 
+      axios.delete('https://prueba-hamburguesas.herokuapp.com/burger/' +
                         this.burgers[this.lastIndexToDelete].id)
           .then(() => {
             this.burgers.splice(this.lastIndexToDelete, 1)
