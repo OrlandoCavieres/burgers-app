@@ -41,26 +41,27 @@ $image-ratio-calc: calc(30px + 2vw);
 $margin-xtreme-calc: calc(5px + 0.5vw);
 
 .card {
-  align-items: center;
+  @extend %flex-center;
   background-color: $primary-color;
   border-radius: $rad-light;
   box-shadow: 1px 2px 2px black;
-  display: flex;
-  flex-direction: row;
   height: calc(60px + 2vw);
-  justify-content: center;
   margin-top: 15px;
   width: 80%;
 }
+
+.card:hover {
+  background-color: $primary-color-bright
+}
+
 .cardInner {
-  align-items: center;
+  @extend %flex-center, %expand-to-all;
   background-color: transparent;
   border-radius: $rad-light;
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  justify-content: center;
-  width: 100%;
+}
+
+.carInner:hover {
+  background-color: $primary-color-bright;
 }
 
 #image_slot {
@@ -75,15 +76,16 @@ $margin-xtreme-calc: calc(5px + 0.5vw);
 }
 
 #nombre_slot {
-  flex: 3
+  background-color: transparent;
+  flex: 1
 }
 
 #nombre_texto {
-  background-color: $primary-color;
-  text-align: left;
+  background-color: transparent;
+  color: white;
   font-size: calc(5px + 2vw);
   padding-left: calc(10px + 1.5vw);
-  color: white;
+  text-align: left;
 }
 
 #boton_slot {
@@ -91,15 +93,12 @@ $margin-xtreme-calc: calc(5px + 0.5vw);
 }
 
 #boton_contain {
+  @extend %button-light-borderless;
   background-color: $warning-color;
-  color: white;
-  z-index: 1000;
   font-size: calc(8px + 1vw);
-  border: 0;
-  border-radius: $rad-light;
-  margin-right: $margin-xtreme-calc;
   height: calc(30px + 1.8vw);
-  width: calc(60px + 10vw);
+  margin-right: $margin-xtreme-calc;
+  width: calc(60px + 10vw)
 }
 
 </style>

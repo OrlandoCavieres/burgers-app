@@ -83,14 +83,8 @@ export default {
 }
 
 .modal-create-masking {
-  position: fixed;
-  z-index: 10;
-  top: 0;
-  left: 0;
-  display: table;
+  @extend %modal-masking;
   background-color: rgba(0, 0, 0, 0.6);
-  width: 100%;
-  height: 100%;
 }
 
 .modal-create-wrap {
@@ -100,10 +94,9 @@ export default {
 }
 
 .modal-create-container {
-  align-items: center;
+  @extend %flex-align-center;
   background-color: $primary-color;
   border-radius: $rad-light;
-  display: flex;
   height: 250px;
   margin: 0 auto;
   padding: 10px 20px;
@@ -111,11 +104,9 @@ export default {
 }
 
 .modal-create-elements {
-  align-items: center;
+  @extend %flex-align-center-column;
   background-color: transparent;
-  display: flex;
   flex: 1;
-  flex-direction: column;
   height: 100%;
 }
 
@@ -126,10 +117,9 @@ export default {
 }
 
 .modal-create-category-form {
-  align-items: center;
+  @extend %flex-align-center;
   background-color: transparent;
   color: white;
-  display: flex
 }
 
 .modal-create-label-form {
@@ -174,28 +164,22 @@ export default {
 }
 
 .modal-create-button-add-ingredient {
+  @extend %button-light-borderless;
   background-color: $dark-select-color;
-  border: 0;
-  border-radius: $rad-light;
-  color: white;
   font-size: calc(8px + 0.5vw);
   height: 25px;
 }
 
 .modal-create-button-reset {
+  @extend %button-light-borderless;
   background-color: $warning-color;
-  border: 0;
-  border-radius: $rad-light;
-  color: white;
   font-size: calc(8px + 0.5vw);
   height: 25px;
 }
 
 .modal-create-button-confirm {
+  @extend %button-smooth-borderless;
   background-color: $light-select-color;
-  border: 0;
-  border-radius: $rad-smooth;
-  color: white;
   font-size: calc(8px + 0.5vw);
   font-weight: bold;
   height: 40px;
@@ -203,10 +187,8 @@ export default {
 }
 
 .modal-create-button-close {
-  color: white;
+  @extend %button-smooth-borderless;
   background-color: $warning-color;
-  border: 0;
-  border-radius: $rad-smooth;
   font-size: 16px;
   height: 35px;
   position: relative;

@@ -40,15 +40,15 @@ export default {
   background-color: white;
 }
 
+%button-delete-properties {
+  height: 35px;
+  font-size: 16px;
+  margin-right: 5px;
+}
+
 .modal-delete-masking {
-  position: fixed;
-  z-index: 10;
-  top: 0;
-  left: 0;
-  display: table;
+  @extend %modal-masking;
   background-color: rgba(0, 0, 0, 0.6);
-  width: 100%;
-  height: 100%;
 }
 
 .modal-delete-wrap {
@@ -58,22 +58,18 @@ export default {
 }
 
 .modal-delete-container {
-  align-items: center;
-  border-radius: $rad-light;
-  width: 350px;
-  height: 140px;
+  @extend %flex-center;
   background-color: #FFF;
-  display: flex;
-  justify-content: center;
+  border-radius: $rad-light;
+  height: 140px;
   margin: 0 auto;
   padding: 10px 20px;
+  width: 350px;
 }
 
 .modal-delete-text {
-  display: flex;
-  flex-direction: column;
+  @extend %flex-align-center-column;
   justify-content: space-between;
-  align-items: center;
   height: 100%;
 }
 
@@ -82,22 +78,12 @@ export default {
 }
 
 .modal-delete-button-confirm {
-  border: 0;
-  height: 35px;
-  color: white;
-  font-size: 16px;
-  border-radius: $rad-light;
-  margin-right: 5px;
+  @extend %button-light-borderless, %button-delete-properties;
   background-color: $warning-color;
 }
 
 .modal-delete-button-cancel {
-  border: 0;
-  height: 35px;
-  color: white;
-  font-size: 16px;
-  border-radius: $rad-light;
-  margin-right: 5px;
+  @extend %button-light-borderless, %button-delete-properties;
   background-color: $alternative-color;
 }
 

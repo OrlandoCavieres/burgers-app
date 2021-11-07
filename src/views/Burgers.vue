@@ -15,7 +15,7 @@
                  :funcionCancelar="cancelDelete" />
     <NewBurgerModal v-if="showCreateModal"
                     :funcionCerrar="closeCreateModal"
-                    :funcionAgregarBurger="(newBurger) => processNewBurgerData(newBurger)" />
+                    :funcionAgregarBurger="(newBurger) => postNewBurgerData(newBurger)" />
   </div>
 </template>
 
@@ -57,12 +57,12 @@ export default {
       this.showCreateModal = true;
     },
 
-    processNewBurgerData(newBurger) {
+    postNewBurgerData(newBurger) {
       this.$http.post('https://prueba-hamburguesas.herokuapp.com/burger/', newBurger, {
         headers: {
           'Content-Type': 'application/json'
         }
-      }).then((response) => this.burgers.push(response.data))
+      }).then((response) => this.burgers.push(response.data), err => console.log(err))
       this.closeCreateModal()
     },
 
@@ -114,9 +114,7 @@ export default {
 }
 
 .container {
-  align-self: center;
-  align-items: center;
-  display: flex;
+  @extend %flex-center;
   flex-direction: column;
   width: 80%;
   margin-top: 5px;
@@ -124,12 +122,10 @@ export default {
 }
 
 .botonAgregar_container {
+  @extend %button-light-borderless;
   align-self: flex-end;
   margin-right: 20%;
   background-color: $alternative-color;
-  border: 0;
-  border-radius: $rad-light;
-  color: white;
   font-size: 18px;
   font-weight: bold;
   height: 50px;

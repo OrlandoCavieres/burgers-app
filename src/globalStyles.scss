@@ -2,9 +2,54 @@ $rad-light: 10px;
 $rad-smooth: 25px;
 $back-color: #FFF7F1;
 $primary-color: #5D4954;
+$primary-color-bright: #76676f;
 $warning-color: #FF6F59;
 $dark-select-color: #002A22;
 $light-select-color: #306B34;
 $alternative-color: #247BA0;
 $hmin: 30vh;
 $wmin: 20vw;
+
+%flex-align-center {
+  align-items: center;
+  display: flex;
+}
+
+%flex-center {
+  @extend %flex-align-center;
+  justify-content: center;
+}
+
+%flex-align-center-column {
+  @extend %flex-align-center;
+  flex-direction: column;
+}
+
+%expand-to-all {
+  height: 100%;
+  width: 100%
+}
+
+%button-borderless-text-white {
+  border: 0;
+  color: white;
+}
+
+%button-light-borderless {
+  @extend %button-borderless-text-white;
+  border-radius: $rad-light;
+}
+
+%button-smooth-borderless {
+  @extend %button-borderless-text-white;
+  border-radius: $rad-smooth;
+}
+
+%modal-masking {
+  @extend %expand-to-all;
+  display: table;
+  left: 0;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+}
