@@ -1,8 +1,11 @@
 <template>
   <div class="mainContainer">
     <h1 id="title_lista">LISTA DE HAMBURGUESAS DISPONIBLES</h1>
+    <!-- Boton para abrir el modal que permite llenar datos para crear una nueva hamburguesa -->
     <button class="botonAgregar_container" v-on:click="() => openCreateModal()">Crear nueva hamburguesa</button>
     <div class="container">
+      <!-- Se genera la lista de hamburguesas empleando el componente BurgerCard y linkeando cada elemento a un
+           modal de vista de informacion y funciones de control -->
       <template v-for="burger in burgers" :key="burger">
         <BurgerCard :nombre="burger.nombre"
                     :funcionMostrarConfirm="() => showInfo(burger)"
@@ -10,9 +13,11 @@
         <ShowInfoModal v-if="showInfoModal" :funcionCerrar="closeInfoModal" :datos="actualBurger"/>
       </template>
     </div>
+    <!-- Control del modal para eliminar una hamburguesa -->
     <DeleteModal v-if="showDeleteModal"
                  :funcionConfirmar="confirmDelete"
                  :funcionCancelar="cancelDelete" />
+    <!-- Control del modal para crear una hamburguesa -->
     <NewBurgerModal v-if="showCreateModal"
                     :funcionCerrar="closeCreateModal"
                     :funcionAgregarBurger="(newBurger) => postNewBurgerData(newBurger)" />
@@ -36,11 +41,14 @@ export default {
 
   data() {
     return {
+      // lista de hamburguesas recueperada desde el servidor
       burgers: [],
 
+      // Estados consultados últimos antes de entrar a un modal que los necesite
       actualBurger: {},
       lastIndexToDelete: 0,
 
+      // Controles de visibilidad de modales
       showCreateModal: false,
       showDeleteModal: false,
       showInfoModal: false
@@ -48,15 +56,25 @@ export default {
   },
 
   methods: {
+    /**
+     * Obtiene la lista de hamburguesas desde el servidor
+     */
     getBurgers() {
       this.$http.get('https://prueba-hamburguesas.herokuapp.com/burger/')
           .then((response) => { this.burgers = response.data; }, err => console.log(err));
     },
 
+    /**
+     * Abre el modal para crear una hamburguesa
+     */
     openCreateModal() {
       this.showCreateModal = true;
     },
 
+    /**
+     * Realiza envio al servidor de la nueva hamburguesa creada empleando metodo POST a la API
+     * @param newBurger Objeto que representa a la nueva hamburguesa a ser enviado
+     */
     postNewBurgerData(newBurger) {
       this.$http.post('https://prueba-hamburguesas.herokuapp.com/burger/', newBurger, {
         headers: {
@@ -66,24 +84,43 @@ export default {
       this.closeCreateModal()
     },
 
+    /**
+     * Cierra el modal para crear una hamburguesa
+     */
     closeCreateModal() {
       this.showCreateModal = false;
     },
 
+    /**
+     * Abre el modal para ver la informacion de una hamburguesa
+     * @param burger Ultima hamburguesa consultada de la lista
+     */
     showInfo(burger) {
       this.showInfoModal = true
       this.actualBurger = burger
     },
 
+    /**
+     * Cierra el modal para ver informacion de una hamburguesa
+     */
     closeInfoModal() {
       this.showInfoModal = false
     },
 
+    /**
+     * Inicia el proceso de eliminar una hamburguesa guardando el indice de la hamburguesa que se desea eliminar
+     * y mostrando el modal para confirmar eliminacion
+     * @param burger
+     */
     deleteBurger(burger) {
       this.showDeleteModal = true
       this.lastIndexToDelete = this.burgers.indexOf(burger)
     },
 
+    /**
+     * Realizar la eliminacion como tal de la hamburguesa en el servidor, mediante metodo DELETE de la API,
+     * entregando el id de la hamburguesa a ser eliminada
+     */
     confirmDelete() {
       this.$http.delete('https://prueba-hamburguesas.herokuapp.com/burger/' + 
                         this.burgers[this.lastIndexToDelete].id)
@@ -93,6 +130,9 @@ export default {
           }, err => console.log(err))
     },
 
+    /**
+     * Cierra el modal de confirmacion de eliminacion
+     */
     cancelDelete() {
       this.showDeleteModal = false
     }

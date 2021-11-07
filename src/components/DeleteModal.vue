@@ -1,12 +1,16 @@
 <template>
   <transition name="modal">
+    <!-- Masking del fondo para oscurecer mientras que se da foco al contenedor principal -->
     <div class="modal-delete-masking">
       <div class="modal-delete-wrap">
+        <!-- Contenedor principal del modal -->
         <div class="modal-delete-container">
           <img id="alert-icon" src="../assets/warning.svg" alt="alert-svg" />
+          <!-- Parte derecha del contenedor principal del modal -->
           <div class="modal-delete-text">
             <h3>Eliminando Hamburguesa</h3>
             <p>¿Estás seguro que deseas eliminar esta hamburguesa?</p>
+            <!-- Seguir estilos conocidos para confirmar/cancelar la decision -->
             <div class="modal-delete-buttons">
               <button class="modal-delete-button-confirm" v-on:click="funcionConfirmar">Si, eliminar</button>
               <button class="modal-delete-button-cancel" v-on:click="funcionCancelar">Cancelar</button>
@@ -23,6 +27,7 @@
 export default {
   name: 'DeleteModal',
   props: {
+    // Se necesitan de 2 funciones en la vista que llama al componente para manejar el modal y sus resultados
     funcionConfirmar: {
       type: Function
     },

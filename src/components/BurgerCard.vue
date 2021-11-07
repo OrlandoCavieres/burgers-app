@@ -1,5 +1,7 @@
 <template>
   <div class="card">
+    <!-- Parte de la tarjeta que no contiene al boton para eliminar. Se separa para que no existan conflictos
+         entre eventos de click de la tarjeta completa con el boton eliminar -->
     <div class="cardInner" v-on:click="funcionMostrarConfirm">
       <div id="image_slot">
         <img id="image_element"
@@ -10,6 +12,7 @@
         <p id="nombre_texto">{{ nombre }}</p>
       </div>
     </div>
+    <!-- Boton para eliminar -->
     <div id="boton_slot">
       <button id="boton_contain" v-on:click="funcionEliminar">ELIMINAR</button>
     </div>
@@ -20,6 +23,8 @@
 export default {
   name: 'BurgerCard',
   props: {
+    // Se debe mostrar el nombre de la hamburguesa en la tarjeta. Se entregan dos funciones para llevar a cabo
+    // las funciones eliminar y mostrar informacion
     nombre: {
       type: String,
       default: 'Una Rica Hamburguesa'

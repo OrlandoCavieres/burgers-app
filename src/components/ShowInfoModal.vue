@@ -1,12 +1,17 @@
 <template>
   <transition name="modal">
+    <!-- Masking del fondo para oscurecer mientras que se da foco al contenedor principal -->
     <div class="modal-show-masking">
       <div class="modal-show-wrap">
+        <!-- Boton fuera del contenedor principal, ya que tiene posicion fuera de foco en absoluta -->
         <button class="modal-show-button-close" v-on:click="funcionCerrar">X</button>
+        <!-- Contenedor principal del modal -->
         <div class="modal-show-container">
+          <!-- Imagen a la izquierda -->
           <img id="image_infoModal"
                src="https://pruebeydisfrute.com/wp-content/uploads/2021/01/2-proud-burger.png"
                alt="ImageBurger">
+          <!-- Datos a la derecha -->
           <div class="modal-show-elements">
             <h2 class="modal-text-title">{{ datos['nombre'] }}</h2>
             <h4 class="modal-text-subtitle">Ingredientes</h4>
@@ -25,6 +30,8 @@
 export default {
   name: 'ShowInfoModal',
   props: {
+    // Se requieren los datos del objeto del cual se desea mostrar informacion, ademas de una funcion para
+    // cerrar el modal
     datos: {
       type: Object,
       required: true

@@ -1,3 +1,4 @@
+// Estilos globales, principalmente colores
 $rad-light: 10px;
 $rad-smooth: 25px;
 $back-color: #FFF7F1;
@@ -9,6 +10,8 @@ $light-select-color: #306B34;
 $alternative-color: #247BA0;
 $hmin: 30vh;
 $wmin: 20vw;
+
+// Estilos CSS altamente reiterativos, que era mejor extender a repetir demasiadas veces
 
 %flex-align-center {
   align-items: center;
