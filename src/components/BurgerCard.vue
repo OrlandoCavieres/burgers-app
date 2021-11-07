@@ -2,7 +2,7 @@
   <div class="card">
     <!-- Parte de la tarjeta que no contiene al boton para eliminar. Se separa para que no existan conflictos
          entre eventos de click de la tarjeta completa con el boton eliminar -->
-    <div class="cardInner" v-on:click="funcionMostrarConfirm">
+    <div class="cardInner" v-on:click="funcionMostrarConfirm" data-testid="TarjetaClick">
       <div id="image_slot">
         <img id="image_element"
              src="https://pruebeydisfrute.com/wp-content/uploads/2021/01/2-proud-burger.png"

@@ -19,20 +19,29 @@
     "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "@testing-library/vue": "^6.4.2",
     "@vue/cli-plugin-babel": "^4.5.14",
     "@vue/cli-plugin-eslint": "^4.5.14",
     "@vue/cli-plugin-router": "^4.5.14",
     "@vue/cli-service": "^4.5.14",
+    "@vue/cli-plugin-unit-jest": "~5.0.0-rc.0",
     "@vue/compiler-sfc": "^3.2.20",
+    "@vue/vue3-jest": "~27.0.0-alpha.3",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^7.20.0",
+    "jest": "~27.3.1",
     "vue-loader-v16": "^16.0.0-beta.5.4",
     "webpack": "^4.46.0"
+  },
+  "jest": {
+    "preset": "@vue/cli-plugin-unit-jest",
+    "verbose": true
   },
   "eslintConfig": {
     "root": true,
     "env": {
+      "jest": true,
       "node": true
     },
     "extends": [
